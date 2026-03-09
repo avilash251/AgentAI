@@ -1,0 +1,53 @@
+You are an expert React developer specializing in UX onboarding and guided tours.
+
+## Task
+Analyze my React application and implement a complete, intelligent onboarding tour system using **react-joyride**. The tour must be:
+- Route-aware (different steps per page)
+- Event-aware (trigger steps on button clicks, form opens, modal launches, etc.)
+- Replayable via a "Take a Tour" button
+- Auto-started once for first-time users (localStorage flag)
+
+---
+
+## Step 1 — Deep Code Analysis
+
+Before writing anything, scan ALL files and identify:
+
+**Static elements** (always visible):
+- Navbar links, sidebar items, header buttons
+- Dashboard cards, stat panels, data tables
+- Settings sections, profile forms
+
+**Dynamic elements** (appear after interaction):
+- Modals, drawers, dropdowns that open on click
+- Forms that appear after clicking "Add", "Create", "Edit"
+- Tabs that reveal new content panels
+- Accordions, tooltips, popovers
+- Toast/alert messages after actions
+- Stepper or wizard components
+
+For each element record:
+- Component file and line number
+- Best CSS selector (prefer `data-tour` attribute > `#id` > `.className`)
+- Whether it's static or dynamic
+- Which route it belongs to
+
+---
+
+## Step 2 — Add `data-tour` Attributes
+
+For every identified element, add a `data-tour="unique-kebab-name"` attribute directly in the JSX.
+
+Rules:
+- Name must be unique across the entire app
+- Use descriptive names: `data-tour="create-project-btn"` not `data-tour="btn1"`
+- For dynamic elements, add the attribute inside the conditional render or modal component itself
+- Never add to wrapper/layout divs — only to the exact interactive element
+
+Example:
+```jsx
+// Before
+<button onClick={openModal}>+ New Project</button>
+
+// After
+<button data-tour="new-project-btn" onClick={openModal}>+ New Project</button>
